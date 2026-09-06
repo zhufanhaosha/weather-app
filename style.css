@@ -176,36 +176,28 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 12px;
+  margin-top: 5px;
+  margin-bottom: 8px;
   padding: 0 5px;
 }
 
 .date-left {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .solar-date {
-  font-size: 22px;
+  font-size: 24px;
   color: #333;
   font-weight: bold;
-}
-
-.lunar-date {
-  font-size: 16px;
-  color: #666;
-  margin-top: 4px;
-}
-
-.date-right {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  line-height: 1.2;
 }
 
 .lunar-info {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.5;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -214,39 +206,48 @@ h1 {
 .lunar-yi {
   color: #e74c3c;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .lunar-ji {
   color: #3498db;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 /* 每日一首诗 */
 .poem-section {
   background: linear-gradient(135deg, #FFF8DC 0%, #FFFACD 100%);
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 2px;
   border: 2px solid #FFE066;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  max-width: 280px;
 }
 
 .poem-title {
-  font-size: 14px;
+  font-size: 13px;
   color: #8B4513;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   text-align: center;
 }
 
 .poem-content {
-  font-size: 15px;
+  font-size: 14px;
   color: #333;
-  line-height: 1.8;
+  line-height: 1.6;
   text-align: center;
   font-style: italic;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.poem-line {
+  display: block;
+  width: 100%;
 }
 
 /* 生日区域 */
@@ -668,9 +669,9 @@ h1 {
   
   /* 日期区域 */
   .date-section {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
   
   .date-left {
@@ -678,33 +679,15 @@ h1 {
   }
   
   .solar-date {
-    font-size: 18px;
-  }
-  
-  .lunar-date {
-    font-size: 14px;
+    font-size: 20px;
   }
   
   .date-right {
-    text-align: center;
     align-items: center;
   }
   
-  .lunar-info {
-    align-items: center;
-  }
-  
-  /* 每日一首诗 */
   .poem-section {
-    margin-top: 8px;
-  }
-  
-  .poem-title {
-    font-size: 13px;
-  }
-  
-  .poem-content {
-    font-size: 13px;
+    max-width: 100%;
   }
   
   /* 生日区域横排 */

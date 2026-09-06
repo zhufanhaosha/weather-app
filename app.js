@@ -186,6 +186,9 @@ function updateDate() {
   
   // 农历信息（简化版，实际项目可以使用 lunar-calendar 库）
   updateLunarInfo(year, month, day);
+  
+  // 更新宜忌
+  updateYiJi(year, month, day);
 }
 
 // 更新农历信息（简化实现）
@@ -245,9 +248,18 @@ function updateLunarInfo(year, month, day) {
   const lunarMonthName = monthNames[Math.min(lunarMonth - 1, 11)];
   const lunarDayName = dayNames[Math.min(lunarDay - 1, 29)];
   
-  document.getElementById('lunarDate').textContent = `农历${lunarMonthName}月${lunarDayName}`;
+  // 不再显示农历日期，只显示宜忌
+}
+
+// 更新宜忌
+function updateYiJi(year, month, day) {
+  const lunarData = {
+    2024: { yi: ['祭祀', '祈福', '求嗣'], ji: ['出行', '搬家'] },
+    2025: { yi: ['嫁娶', '出行', '搬家'], ji: ['安葬', '破土'] },
+    2026: { yi: ['祭祀', '祈福', '求嗣'], ji: ['破土', '安葬'] }
+  };
   
-  // 显示宜忌（基于当天简单生成）
+  const data = lunarData[year] || lunarData[2026];
   const yiJi = data.yi[Math.floor(day / 5) % data.yi.length];
   const jiJi = data.ji[Math.floor(day / 5) % data.ji.length];
   
@@ -322,7 +334,7 @@ function updateHoroscope() {
   document.getElementById('luck-gemini').textContent = geminiLuck;
 }
 
-// 更新每日一首诗
+// 更新每日一首诗（每行两句）
 function updatePoem() {
   const now = new Date();
   const day = now.getDate();
@@ -333,7 +345,31 @@ function updatePoem() {
   const poemIndex = (day + month + year) % poems.length;
   const poem = poems[poemIndex];
   
-  document.getElementById('poemContent').textContent = `${poem.content}\n——${poem.author}`;
+  // 将诗歌内容按行分割，然后每两句合并成一行
+  const lines = poem.content.split('\n').filter(line => line.trim());
+  const contentEl = document.getElementById('poemContent');
+  contentEl.innerHTML = '';
+  
+  // 每行显示两句
+  for (let i = 0; i < lines.length; i += 2) {
+    const lineDiv = document.createElement('div');
+    lineDiv.className = 'poem-line';
+    if (i + 1 < lines.length) {
+      lineDiv.textContent = lines[i] + '，' + lines[i + 1];
+    } else {
+      lineDiv.textContent = lines[i];
+    }
+    contentEl.appendChild(lineDiv);
+  }
+  
+  // 作者
+  const authorDiv = document.createElement('div');
+  authorDiv.style.marginTop = '4px';
+  authorDiv.style.fontSize = '12px';
+  authorDiv.style.color = '#8B4513';
+  authorDiv.style.fontStyle = 'normal';
+  authorDiv.textContent = `——${poem.author}`;
+  contentEl.appendChild(authorDiv);
 }
 
 // 更新天气动画
