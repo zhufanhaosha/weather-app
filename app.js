@@ -344,15 +344,15 @@ function updateWeatherAnimation(weatherCode) {
   // 阴天 (天气代码 3)
   else if (weatherCode === 3) {
     // 厚重云朵
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const cloud = document.createElement('div');
       cloud.className = 'cloud';
-      cloud.style.top = `${5 + i * 15}%`;
-      cloud.style.animationDelay = `${i * -5}s`;
-      cloud.style.width = `${120 + i * 40}px`;
+      cloud.style.top = `${5 + i * 18}%`;
+      cloud.style.animationDelay = `${i * -10}s`;
+      cloud.style.width = `${140 + i * 50}px`;
       cloud.style.height = `${50 + i * 15}px`;
-      cloud.style.opacity = '0.9';
-      cloud.style.background = 'rgba(180, 180, 180, 0.85)';
+      cloud.style.opacity = '0.88';
+      cloud.style.background = 'rgba(200, 200, 200, 0.85)';
       weatherAnimation.appendChild(cloud);
     }
   }
@@ -363,20 +363,21 @@ function updateWeatherAnimation(weatherCode) {
     for (let i = 0; i < 3; i++) {
       const cloud = document.createElement('div');
       cloud.className = 'cloud';
-      cloud.style.top = `${10 + i * 15}%`;
-      cloud.style.animationDelay = `${i * -7}s`;
-      cloud.style.width = `${80 + i * 30}px`;
-      cloud.style.height = `${30 + i * 10}px`;
+      cloud.style.top = `${8 + i * 18}%`;
+      cloud.style.animationDelay = `${i * -15}s`;
+      cloud.style.width = `${100 + i * 40}px`;
+      cloud.style.height = `${40 + i * 12}px`;
+      cloud.style.background = 'rgba(180, 180, 180, 0.85)';
       weatherAnimation.appendChild(cloud);
     }
     
     // 雨滴
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 40; i++) {
       const drop = document.createElement('div');
       drop.className = 'raindrop';
       drop.style.left = `${Math.random() * 100}%`;
-      drop.style.animationDelay = `${Math.random() * 0.8}s`;
-      drop.style.animationDuration = `${0.5 + Math.random() * 0.5}s`;
+      drop.style.animationDelay = `${Math.random() * 2}s`;
+      drop.style.animationDuration = `${1.5 + Math.random() * 1}s`;
       weatherAnimation.appendChild(drop);
     }
   }
@@ -387,26 +388,27 @@ function updateWeatherAnimation(weatherCode) {
     for (let i = 0; i < 2; i++) {
       const cloud = document.createElement('div');
       cloud.className = 'cloud';
-      cloud.style.top = `${15 + i * 20}%`;
-      cloud.style.animationDelay = `${i * -10}s`;
-      cloud.style.width = '120px';
-      cloud.style.height = '40px';
+      cloud.style.top = `${12 + i * 22}%`;
+      cloud.style.animationDelay = `${i * -15}s`;
+      cloud.style.width = '140px';
+      cloud.style.height = '45px';
+      cloud.style.background = 'rgba(220, 220, 220, 0.9)';
       weatherAnimation.appendChild(cloud);
     }
     
     // 雪花
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 25; i++) {
       const snow = document.createElement('div');
       snow.style.position = 'absolute';
       snow.style.left = `${Math.random() * 100}%`;
       snow.style.top = '-20px';
-      snow.style.width = '8px';
-      snow.style.height = '8px';
-      snow.style.background = 'white';
+      snow.style.width = `${4 + Math.random() * 6}px`;
+      snow.style.height = snow.style.width;
+      snow.style.background = 'rgba(255, 255, 255, 0.9)';
       snow.style.borderRadius = '50%';
-      snow.style.opacity = '0.8';
-      snow.style.animation = `snow ${2 + Math.random() * 2}s linear infinite`;
-      snow.style.animationDelay = `${Math.random() * 2}s`;
+      snow.style.boxShadow = '0 0 5px rgba(255,255,255,0.5)';
+      snow.style.animation = `snowFall ${4 + Math.random() * 3}s linear infinite`;
+      snow.style.animationDelay = `${Math.random() * 4}s`;
       weatherAnimation.appendChild(snow);
     }
   }
@@ -414,17 +416,17 @@ function updateWeatherAnimation(weatherCode) {
   // 雾天 (天气代码 45, 48)
   else if (weatherCode === 45 || weatherCode === 48) {
     // 雾气效果
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const fog = document.createElement('div');
       fog.style.position = 'absolute';
-      fog.style.top = `${10 + i * 18}%`;
-      fog.style.left = '-100px';
-      fog.style.width = '300px';
-      fog.style.height = '60px';
-      fog.style.background = 'linear-gradient(90deg, transparent, rgba(200,200,200,0.4), transparent)';
+      fog.style.top = `${12 + i * 20}%`;
+      fog.style.left = '-150px';
+      fog.style.width = '350px';
+      fog.style.height = '70px';
+      fog.style.background = 'linear-gradient(90deg, transparent, rgba(220,220,220,0.5), transparent)';
       fog.style.borderRadius = '50%';
-      fog.style.animation = `cloudMove ${15 + i * 3}s linear infinite`;
-      fog.style.animationDelay = `${i * -3}s`;
+      fog.style.animation = `cloudFloat ${35 + i * 8}s ease-in-out infinite`;
+      fog.style.animationDelay = `${i * -8}s`;
       weatherAnimation.appendChild(fog);
     }
   }
@@ -584,9 +586,18 @@ function showError(msg) {
 // 添加雪花动画样式
 const snowStyle = document.createElement('style');
 snowStyle.textContent = `
-  @keyframes snow {
-    0% { transform: translateY(-20px) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(360deg); }
+  @keyframes snowFall {
+    0% { 
+      transform: translateY(-20px) translateX(0) rotate(0deg); 
+      opacity: 0.9;
+    }
+    25% { transform: translateY(25vh) translateX(15px) rotate(90deg); }
+    50% { transform: translateY(50vh) translateX(-10px) rotate(180deg); opacity: 0.8; }
+    75% { transform: translateY(75vh) translateX(20px) rotate(270deg); }
+    100% { 
+      transform: translateY(110vh) translateX(-5px) rotate(360deg); 
+      opacity: 0.6;
+    }
   }
 `;
 document.head.appendChild(snowStyle);
