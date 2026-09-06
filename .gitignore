@@ -1,0 +1,22 @@
+# Ignore fix notes and temporary files
+FIX_*.md
+MOBILE_*.md
+PHONE_*.md
+LAYOUT_*.md
+*_FIX.md
+*_DEPLOY.md
+*_UPDATE.md
+*_UPLOAD.md
+*_TODO.md
+*_NOTE.md
+*_SUMMARY.md
+*_CHANGELOG.md
+*_COMPLETE.md
+*_DONE.md
+*_EDIT_LIST.md
+*_FILES.md
+*_README.md
+*_URGENT*.md
+*_FINAL*.md
+weather-app.tar.gz
+.env

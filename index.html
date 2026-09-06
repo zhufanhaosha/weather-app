@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>天气查询</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🌤️ 天气查询</h1>
+    
+    <!-- 生日提醒区域 -->
+    <div class="birthday-section">
+      <!-- 左侧：皮卡丘 -->
+      <div class="photo-box left-photo">
+        <img src="pikachu.jpg" alt="皮卡丘">
+      </div>
+      
+      <!-- 中间：生日提醒 -->
+      <div class="birthday-reminders">
+        <div class="birthday-item">
+          <span class="birthday-label">楚楚生日</span>
+          <span id="chuchuDays" class="days-count"></span>
+        </div>
+        <div class="birthday-item">
+          <span class="birthday-label">沐沐生日</span>
+          <span id="mumuDays" class="days-count"></span>
+        </div>
+      </div>
+      
+      <!-- 右侧：玩偶 -->
+      <div class="photo-box right-photo">
+        <img src="birthday.jpg" alt="玩偶">
+      </div>
+    </div>
+    
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="输入城市名...">
+      <button id="searchBtn">查询</button>
+    </div>
+    
+    <!-- 快捷城市 -->
+    <div class="quick-cities">
+      <button data-city="石家庄">石家庄</button>
+      <button data-city="北京">北京</button>
+      <button data-city="上海">上海</button>
+      <button data-city="广州">广州</button>
+      <button data-city="深圳">深圳</button>
+    </div>
+    
+    <!-- 主内容 -->
+    <div class="main-content" id="mainContent" style="display:none;">
+      <!-- 左侧：天气 -->
+      <div class="left-panel">
+        <div id="weatherDisplay" class="weather-display">
+          <div class="city-name" id="cityName"></div>
+          <div class="weather-icon" id="weatherIcon"></div>
+          <div class="temperature" id="temperature"></div>
+          <div class="description" id="description"></div>
+          <div class="details">
+            <div class="detail-item"><span>💧 湿度</span><span id="humidity"></span></div>
+            <div class="detail-item"><span>💨 风速</span><span id="windSpeed"></span></div>
+            <div class="detail-item"><span>🌡️ 体感</span><span id="feelsLike"></span></div>
+          </div>
+        </div>
+        
+        <div class="forecast-section">
+          <h3>📅 15天趋势</h3>
+          <div id="forecastList" class="forecast-list"></div>
+        </div>
+      </div>
+      
+      <!-- 右侧：新闻 -->
+      <div class="right-panel">
+        <div class="news-section">
+          <h3>📰 国内新闻</h3>
+          <div id="newsList" class="news-list">
+            <div class="loading">加载中...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="errorMessage" class="error-message" style="display:none;"></div>
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html>
