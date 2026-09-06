@@ -193,62 +193,7 @@ function updateDate() {
 
 // 更新农历信息（简化实现）
 function updateLunarInfo(year, month, day) {
-  // 使用一个简单的农历转换表（2024-2026年）
-  const lunarData = {
-    2024: {
-      months: [
-        { name: '正', days: 30 }, { name: '二', days: 29 }, { name: '三', days: 30 },
-        { name: '四', days: 29 }, { name: '五', days: 30 }, { name: '六', days: 30 },
-        { name: '七', days: 29 }, { name: '八', days: 30 }, { name: '九', days: 29 },
-        { name: '十', days: 30 }, { name: '冬', days: 29 }, { name: '腊', days: 30 }
-      ],
-      leapMonth: -1,
-      yi: ['祭祀', '祈福', '求嗣'],
-      ji: ['出行', '搬家']
-    },
-    2025: {
-      months: [
-        { name: '正', days: 29 }, { name: '二', days: 30 }, { name: '三', days: 29 },
-        { name: '四', days: 30 }, { name: '五', days: 29 }, { name: '六', days: 30 },
-        { name: '七', days: 29 }, { name: '八', days: 30 }, { name: '九', days: 30 },
-        { name: '十', days: 29 }, { name: '冬', days: 30 }, { name: '腊', days: 29 }
-      ],
-      leapMonth: 2,
-      yi: ['嫁娶', '出行', '搬家'],
-      ji: ['安葬', '破土']
-    },
-    2026: {
-      months: [
-        { name: '正', days: 29 }, { name: '二', days: 30 }, { name: '三', days: 29 },
-        { name: '四', days: 30 }, { name: '五', days: 29 }, { name: '六', days: 30 },
-        { name: '七', days: 29 }, { name: '八', days: 30 }, { name: '九', days: 29 },
-        { name: '十', days: 30 }, { name: '冬', days: 29 }, { name: '腊', days: 30 }
-      ],
-      leapMonth: -1,
-      yi: ['祭祀', '祈福', '求嗣'],
-      ji: ['破土', '安葬']
-    }
-  };
-  
-  const data = lunarData[year] || lunarData[2026];
-  
-  // 计算农历日期
-  let lunarDay = day;
-  let lunarMonth = month;
-  let offset = 0;
-  
-  // 简化处理：假设公历和农历月份大致对应
-  // 实际项目中应使用专业的农历库
-  
-  const monthNames = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊'];
-  const dayNames = ['初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
-                    '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
-                    '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'];
-  
-  const lunarMonthName = monthNames[Math.min(lunarMonth - 1, 11)];
-  const lunarDayName = dayNames[Math.min(lunarDay - 1, 29)];
-  
-  // 不再显示农历日期，只显示宜忌
+  // 简化农历显示
 }
 
 // 更新宜忌
