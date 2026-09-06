@@ -19,7 +19,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
-  max-width: 900px;
+  max-width: 1200px;
   width: 100%;
 }
 
@@ -225,12 +225,68 @@ h1 {
 /* 主内容 */
 .main-content {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 .left-panel {
   flex: 1;
   min-width: 0;
+}
+
+/* 课程表 */
+.schedule-section {
+  background: #FFF9E6;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 2px solid #FFE066;
+}
+
+.schedule-section h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #333;
+}
+
+.schedule-table {
+  overflow-x: auto;
+}
+
+.schedule-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid #ddd;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.schedule-table th {
+  background: linear-gradient(135deg, #FFD93D 0%, #FFA500 100%);
+  color: #333;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.schedule-table td {
+  background: white;
+  color: #555;
+}
+
+.schedule-table tr:hover td {
+  background: #FFF9E6;
+}
+
+.period {
+  background: #f0f0f0 !important;
+  font-weight: 500;
+  color: #666;
+  width: 50px;
 }
 
 /* 天气显示 */
@@ -341,8 +397,11 @@ h1 {
 
 /* 新闻 */
 .right-panel {
-  width: 280px;
+  width: 320px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .news-section {
@@ -515,11 +574,20 @@ h1 {
   /* 主内容 */
   .main-content {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
   
   .right-panel {
     width: 100%;
+  }
+  
+  .schedule-table table {
+    font-size: 11px;
+  }
+  
+  .schedule-table th,
+  .schedule-table td {
+    padding: 6px 4px;
   }
   
   /* 天气显示 */
