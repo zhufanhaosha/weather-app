@@ -316,6 +316,46 @@ function updateWeatherAnimation(weatherCode) {
     }
   }
   
+  // 多云 (天气代码 2)
+  else if (weatherCode === 2) {
+    // 云朵
+    for (let i = 0; i < 3; i++) {
+      const cloud = document.createElement('div');
+      cloud.className = 'cloud';
+      cloud.style.top = `${10 + i * 20}%`;
+      cloud.style.animationDelay = `${i * -7}s`;
+      cloud.style.width = `${80 + i * 40}px`;
+      cloud.style.height = `${30 + i * 10}px`;
+      cloud.style.opacity = '0.8';
+      weatherAnimation.appendChild(cloud);
+    }
+    
+    // 部分太阳
+    const sun = document.createElement('div');
+    sun.className = 'sun';
+    sun.style.top = '5%';
+    sun.style.right = '15%';
+    sun.style.width = '80px';
+    sun.style.height = '80px';
+    sun.style.opacity = '0.6';
+    weatherAnimation.appendChild(sun);
+  }
+  
+  // 阴天 (天气代码 3)
+  else if (weatherCode === 3) {
+    // 厚重云朵
+    for (let i = 0; i < 4; i++) {
+      const cloud = document.createElement('div');
+      cloud.className = 'cloud';
+      cloud.style.top = `${5 + i * 18}%`;
+      cloud.style.animationDelay = `${i * -5}s`;
+      cloud.style.width = `${100 + i * 30}px`;
+      cloud.style.height = `${40 + i * 10}px`;
+      cloud.style.opacity = '0.85';
+      weatherAnimation.appendChild(cloud);
+    }
+  }
+  
   // 雨天 (天气代码 51-67, 80-82)
   else if ((weatherCode >= 51 && weatherCode <= 67) || (weatherCode >= 80 && weatherCode <= 82)) {
     // 云朵
@@ -367,6 +407,24 @@ function updateWeatherAnimation(weatherCode) {
       snow.style.animation = `snow ${2 + Math.random() * 2}s linear infinite`;
       snow.style.animationDelay = `${Math.random() * 2}s`;
       weatherAnimation.appendChild(snow);
+    }
+  }
+  
+  // 雾天 (天气代码 45, 48)
+  else if (weatherCode === 45 || weatherCode === 48) {
+    // 雾气效果
+    for (let i = 0; i < 5; i++) {
+      const fog = document.createElement('div');
+      fog.style.position = 'absolute';
+      fog.style.top = `${10 + i * 18}%`;
+      fog.style.left = '-100px';
+      fog.style.width = '300px';
+      fog.style.height = '60px';
+      fog.style.background = 'linear-gradient(90deg, transparent, rgba(200,200,200,0.4), transparent)';
+      fog.style.borderRadius = '50%';
+      fog.style.animation = `cloudMove ${15 + i * 3}s linear infinite`;
+      fog.style.animationDelay = `${i * -3}s`;
+      weatherAnimation.appendChild(fog);
     }
   }
 }
