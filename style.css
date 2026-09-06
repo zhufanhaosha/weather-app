@@ -263,13 +263,15 @@ h1 {
 
 .schedule-table table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 13px;
+  border: 2px solid #333;
 }
 
 .schedule-table th,
 .schedule-table td {
-  border: 1px solid #ddd;
+  border: 1px solid #999;
   padding: 8px 6px;
   text-align: center;
 }
@@ -405,7 +407,7 @@ h1 {
 
 /* 新闻 */
 .right-panel {
-  width: 320px;
+  width: 66.66%;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -591,11 +593,13 @@ h1 {
   
   .schedule-table table {
     font-size: 11px;
+    border: 2px solid #333;
   }
   
   .schedule-table th,
   .schedule-table td {
     padding: 6px 4px;
+    border: 1px solid #666;
   }
   
   /* 天气显示 */
