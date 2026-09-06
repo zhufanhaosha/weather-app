@@ -2,9 +2,17 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FFD93D">
+  <meta name="description" content="每日天气、课程表、新闻、运势一站式查询">
   <title>天气查询</title>
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
 </head>
 <body>
   <div class="container">
@@ -197,5 +205,19 @@
   </div>
   
   <script src="app.js"></script>
+  <script>
+    // 注册 Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered:', registration);
+          })
+          .catch(error => {
+            console.log('SW registration failed:', error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
