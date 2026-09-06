@@ -8,6 +8,20 @@
 </head>
 <body>
   <div class="container">
+    <!-- 日期和农历信息 -->
+    <div class="date-section">
+      <div class="date-left">
+        <div class="solar-date" id="solarDate"></div>
+        <div class="lunar-date" id="lunarDate"></div>
+      </div>
+      <div class="date-right">
+        <div class="lunar-info">
+          <span class="lunar-yi" id="lunarYi"></span>
+          <span class="lunar-ji" id="lunarJi"></span>
+        </div>
+      </div>
+    </div>
+    
     <h1>🌤️ 天气查询</h1>
     
     <!-- 生日提醒区域 -->
@@ -19,13 +33,17 @@
       
       <!-- 中间：生日提醒 -->
       <div class="birthday-reminders">
-        <div class="birthday-item">
-          <span class="birthday-label">楚楚生日</span>
-          <span id="chuchuDays" class="days-count"></span>
+        <div class="birthday-item chuchu-birthday">
+          <div class="birthday-info">
+            <span class="birthday-label">楚楚生</span>
+            <span class="birthday-days" id="chuchuDays"></span>
+          </div>
         </div>
-        <div class="birthday-item">
-          <span class="birthday-label">沐沐生日</span>
-          <span id="mumuDays" class="days-count"></span>
+        <div class="birthday-item mumu-birthday">
+          <div class="birthday-info">
+            <span class="birthday-label">沐沐生</span>
+            <span class="birthday-days" id="mumuDays"></span>
+          </div>
         </div>
       </div>
       

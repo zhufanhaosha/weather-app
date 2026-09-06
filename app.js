@@ -96,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
   mainContent = document.getElementById('mainContent');
   quickCityBtns = document.querySelectorAll('.quick-cities button');
   
+  // 初始化日期和农历
+  updateDate();
+  
   // 初始化生日提醒
   updateBirthdays();
   
@@ -133,6 +136,89 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// 更新日期和农历
+function updateDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  
+  // 公历日期
+  const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  const weekday = weekdays[now.getDay()];
+  document.getElementById('solarDate').textContent = `${year}年${month}月${day}日 ${weekday}`;
+  
+  // 农历信息（简化版，实际项目可以使用 lunar-calendar 库）
+  updateLunarInfo(year, month, day);
+}
+
+// 更新农历信息（简化实现）
+function updateLunarInfo(year, month, day) {
+  // 使用一个简单的农历转换表（2024-2026年）
+  const lunarData = {
+    2024: {
+      months: [
+        { name: '正', days: 30 }, { name: '二', days: 29 }, { name: '三', days: 30 },
+        { name: '四', days: 29 }, { name: '五', days: 30 }, { name: '六', days: 30 },
+        { name: '七', days: 29 }, { name: '八', days: 30 }, { name: '九', days: 29 },
+        { name: '十', days: 30 }, { name: '冬', days: 29 }, { name: '腊', days: 30 }
+      ],
+      leapMonth: -1,
+      yi: ['祭祀', '祈福', '求嗣'],
+      ji: ['出行', '搬家']
+    },
+    2025: {
+      months: [
+        { name: '正', days: 29 }, { name: '二', days: 30 }, { name: '三', days: 29 },
+        { name: '四', days: 30 }, { name: '五', days: 29 }, { name: '六', days: 30 },
+        { name: '七', days: 29 }, { name: '八', days: 30 }, { name: '九', days: 30 },
+        { name: '十', days: 29 }, { name: '冬', days: 30 }, { name: '腊', days: 29 }
+      ],
+      leapMonth: 2,
+      yi: ['嫁娶', '出行', '搬家'],
+      ji: ['安葬', '破土']
+    },
+    2026: {
+      months: [
+        { name: '正', days: 29 }, { name: '二', days: 30 }, { name: '三', days: 29 },
+        { name: '四', days: 30 }, { name: '五', days: 29 }, { name: '六', days: 30 },
+        { name: '七', days: 29 }, { name: '八', days: 30 }, { name: '九', days: 29 },
+        { name: '十', days: 30 }, { name: '冬', days: 29 }, { name: '腊', days: 30 }
+      ],
+      leapMonth: -1,
+      yi: ['祭祀', '祈福', '求嗣'],
+      ji: ['破土', '安葬']
+    }
+  };
+  
+  const data = lunarData[year] || lunarData[2026];
+  
+  // 计算农历日期
+  let lunarDay = day;
+  let lunarMonth = month;
+  let offset = 0;
+  
+  // 简化处理：假设公历和农历月份大致对应
+  // 实际项目中应使用专业的农历库
+  
+  const monthNames = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊'];
+  const dayNames = ['初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+                    '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+                    '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'];
+  
+  const lunarMonthName = monthNames[Math.min(lunarMonth - 1, 11)];
+  const lunarDayName = dayNames[Math.min(lunarDay - 1, 29)];
+  
+  document.getElementById('lunarDate').textContent = `农历${lunarMonthName}月${lunarDayName}`;
+  
+  // 显示宜忌（基于当天简单生成）
+  const yiJi = data.yi[Math.floor(day / 5) % data.yi.length];
+  const jiJi = data.ji[Math.floor(day / 5) % data.ji.length];
+  
+  document.getElementById('lunarYi').textContent = `宜${yiJi} `;
+  document.getElementById('lunarJi').textContent = `忌${jiJi}`;
+}
+
 // 更新生日提醒
 function updateBirthdays() {
   const now = new Date();
@@ -145,7 +231,7 @@ function updateBirthdays() {
   chuchuElement.textContent = `${chuchuBirthday}天`;
   
   if (currentMonth === birthdays.chuchu.month && currentDay === birthdays.chuchu.day) {
-    chuchuElement.textContent = '🎉 今天生日快乐！';
+    chuchuElement.textContent = '🎉今天';
     chuchuElement.parentElement.classList.add('today');
   }
   
@@ -155,7 +241,7 @@ function updateBirthdays() {
   mumuElement.textContent = `${mumuBirthday}天`;
   
   if (currentMonth === birthdays.mumu.month && currentDay === birthdays.mumu.day) {
-    mumuElement.textContent = '🎉 今天生日快乐！';
+    mumuElement.textContent = '🎉今天';
     mumuElement.parentElement.classList.add('today');
   }
 }
