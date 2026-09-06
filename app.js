@@ -265,62 +265,41 @@ function renderForecast(daily) {
 
 async function loadNews() {
   const newsList = document.getElementById('newsList');
+  newsList.innerHTML = '<div class="loading">加载中...</div>';
   
-  try {
-    // 使用 RSS 转 JSON 服务获取央视新闻
-    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feed.cctv.com/rss/cctvnews.xml');
-    const data = await res.json();
-    
-    if (data.items && data.items.length > 0) {
-      newsList.innerHTML = '';
+  // 尝试多个中文新闻源
+  const newsSources = [
+    { url: 'https://cn.nytimes.com/rss/', name: '纽约时报中文网', type: '国际' },
+    { url: 'https://feeds.bbci.co.uk/zhongwen/simp/rss.xml', name: 'BBC中文', type: '国际' }
+  ];
+  
+  for (const source of newsSources) {
+    try {
+      const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}`);
+      const data = await res.json();
       
-      const items = data.items.slice(0, 10);
-      items.forEach((item, index) => {
-        const newsItem = document.createElement('div');
-        newsItem.className = 'news-item';
-        newsItem.innerHTML = `
-          <div class="news-title">${index + 1}. ${item.title}</div>
-          <div class="news-source">${item.author || '央视新闻'}</div>
-        `;
-        newsItem.addEventListener('click', () => window.open(item.link, '_blank'));
-        newsList.appendChild(newsItem);
-      });
-    } else {
-      // 备用：尝试其他中文新闻源
-      loadCnNews(newsList);
+      if (data.items && data.items.length > 0) {
+        newsList.innerHTML = '';
+        
+        const items = data.items.slice(0, 8);
+        items.forEach((item, index) => {
+          const newsItem = document.createElement('div');
+          newsItem.className = 'news-item';
+          newsItem.innerHTML = `
+            <div class="news-title">${index + 1}. ${item.title}</div>
+            <div class="news-source">${source.name}</div>
+          `;
+          newsItem.addEventListener('click', () => window.open(item.link, '_blank'));
+          newsList.appendChild(newsItem);
+        });
+        return;
+      }
+    } catch (err) {
+      console.warn(`Failed to load ${source.name}:`, err);
     }
-  } catch (err) {
-    // 如果新闻 API 失败，使用备用方案
-    loadCnNews(newsList);
   }
-}
-
-async function loadCnNews(newsList) {
-  try {
-    // 使用新华网 RSS
-    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=http://feedx.net/rss/xinhua.xml');
-    const data = await res.json();
-    
-    if (data.items && data.items.length > 0) {
-      newsList.innerHTML = '';
-      
-      const items = data.items.slice(0, 10);
-      items.forEach((item, index) => {
-        const newsItem = document.createElement('div');
-        newsItem.className = 'news-item';
-        newsItem.innerHTML = `
-          <div class="news-title">${index + 1}. ${item.title}</div>
-          <div class="news-source">${item.author || '新华网'}</div>
-        `;
-        newsItem.addEventListener('click', () => window.open(item.link, '_blank'));
-        newsList.appendChild(newsItem);
-      });
-    } else {
-      newsList.innerHTML = '<div class="loading">暂无新闻数据</div>';
-    }
-  } catch (err) {
-    newsList.innerHTML = '<div class="loading">新闻加载失败</div>';
-  }
+  
+  newsList.innerHTML = '<div class="loading">暂无新闻数据</div>';
 }
 
 function showError(msg) {
