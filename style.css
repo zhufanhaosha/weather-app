@@ -6,7 +6,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #FFE066 0%, #FFD93D 50%, #F7931E 100%);
+  background: linear-gradient(135deg, #FFE4E1 0%, #FFF8DC 25%, #E0FFFF 50%, #FFFACD 75%, #FFE4E1 100%);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -125,10 +125,10 @@ body {
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
   max-width: 1200px;
   width: 100%;
 }
@@ -175,7 +175,7 @@ h1 {
 .date-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 12px;
   padding: 0 5px;
 }
@@ -185,27 +185,29 @@ h1 {
 }
 
 .solar-date {
-  font-size: 14px;
-  color: #666;
-  font-weight: 500;
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
 }
 
 .lunar-date {
-  font-size: 12px;
-  color: #999;
-  margin-top: 2px;
+  font-size: 16px;
+  color: #666;
+  margin-top: 4px;
 }
 
 .date-right {
-  text-align: right;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .lunar-info {
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.6;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 2px;
 }
 
@@ -219,6 +221,32 @@ h1 {
   color: #3498db;
   font-weight: 600;
   font-size: 15px;
+}
+
+/* 每日一首诗 */
+.poem-section {
+  background: linear-gradient(135deg, #FFF8DC 0%, #FFFACD 100%);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  border: 2px solid #FFE066;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.poem-title {
+  font-size: 14px;
+  color: #8B4513;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.poem-content {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.8;
+  text-align: center;
+  font-style: italic;
 }
 
 /* 生日区域 */
@@ -641,22 +669,42 @@ h1 {
   /* 日期区域 */
   .date-section {
     margin-bottom: 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .date-left {
+    text-align: center;
   }
   
   .solar-date {
-    font-size: 12px;
+    font-size: 18px;
   }
   
   .lunar-date {
-    font-size: 10px;
+    font-size: 14px;
+  }
+  
+  .date-right {
+    text-align: center;
+    align-items: center;
   }
   
   .lunar-info {
-    font-size: 11px;
+    align-items: center;
   }
   
-  .lunar-yi, .lunar-ji {
-    font-size: 12px;
+  /* 每日一首诗 */
+  .poem-section {
+    margin-top: 8px;
+  }
+  
+  .poem-title {
+    font-size: 13px;
+  }
+  
+  .poem-content {
+    font-size: 13px;
   }
   
   /* 生日区域横排 */

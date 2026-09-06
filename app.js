@@ -135,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 初始化星座运势
   updateHoroscope();
   
+  // 初始化每日一首诗
+  updatePoem();
+  
   // 初始化：加载默认城市
   loadWeather(DEFAULT_LAT, DEFAULT_LON, DEFAULT_CITY);
   
@@ -279,6 +282,30 @@ function updateBirthdays() {
   }
 }
 
+// 每日一首诗（小学一、二年级语文课本）
+const poems = [
+  { title: '咏鹅', content: '鹅，鹅，鹅，\n曲项向天歌。\n白毛浮绿水，\n红掌拨清波。', author: '骆宾王' },
+  { title: '静夜思', content: '床前明月光，\n疑是地上霜。\n举头望明月，\n低头思故乡。', author: '李白' },
+  { title: '春晓', content: '春眠不觉晓，\n处处闻啼鸟。\n夜来风雨声，\n花落知多少。', author: '孟浩然' },
+  { title: '寻隐者不遇', content: '松下问童子，\n言师采药去。\n只在此山中，\n云深不知处。', author: '贾岛' },
+  { title: '小池', content: '泉眼无声惜细流，\n树阴照水爱晴柔。\n小荷才露尖尖角，\n早有蜻蜓立上头。', author: '杨万里' },
+  { title: '所见', content: '牧童骑黄牛，\n歌声振林樾。\n意欲捕鸣蝉，\n忽然闭口立。', author: '袁枚' },
+  { title: '池上', content: '小娃撑小艇，\n偷采白莲回。\n不解藏踪迹，\n浮萍一道开。', author: '白居易' },
+  { title: '古朗月行', content: '小时不识月，\n呼作白玉盘。\n又疑瑶台镜，\n飞在青云端。', author: '李白' },
+  { title: '风', content: '解落三秋叶，\n能开二月花。\n过江千尺浪，\n入竹万竿斜。', author: '李峤' },
+  { title: '登鹳雀楼', content: '白日依山尽，\n黄河入海流。\n欲穷千里目，\n更上一层楼。', author: '王之涣' },
+  { title: '春夜喜雨', content: '好雨知时节，\n当春乃发生。\n随风潜入夜，\n润物细无声。', author: '杜甫' },
+  { title: '江雪', content: '千山鸟飞绝，\n万径人踪灭。\n孤舟蓑笠翁，\n独钓寒江雪。', author: '柳宗元' },
+  { title: '锄禾', content: '锄禾日当午，\n汗滴禾下土。\n谁知盘中餐，\n粒粒皆辛苦。', author: '李绅' },
+  { title: '忆江南', content: '江南好，\n风景旧曾谙。\n日出江花红胜火，\n春来江水绿如蓝。\n能不忆江南？', author: '白居易' },
+  { title: '小儿垂钓', content: '蓬头稚子学垂纶，\n侧坐莓苔草映身。\n路人借问遥招手，\n怕得鱼惊不应人。', author: '胡令能' },
+  { title: '江南', content: '江南可采莲，\n莲叶何田田。\n鱼戏莲叶间，\n鱼戏莲叶东，\n鱼戏莲叶西，\n鱼戏莲叶南，\n鱼戏莲叶北。', author: '汉乐府' },
+  { title: '敕勒歌', content: '敕勒川，阴山下。\n天似穹庐，笼盖四野。\n天苍苍，野茫茫，\n风吹草低见牛羊。', author: '北朝民歌' },
+  { title: '风荷', content: '泉眼无声惜细流，\n树阴照水爱晴柔。\n小荷才露尖尖角，\n早有蜻蜓立上头。', author: '杨万里' },
+  { title: '画', content: '远看山有色，\n近听水无声。\n春去花还在，\n人来鸟不惊。', author: '王维' },
+  { title: '对韵歌', content: '云对雨，\n雪对风，\n花对树，\n鸟对虫。', author: '小学课本' }
+];
+
 // 更新星座运势
 function updateHoroscope() {
   const now = new Date();
@@ -293,6 +320,20 @@ function updateHoroscope() {
   document.getElementById('luck-scorpio').textContent = scorpioLuck;
   document.getElementById('luck-pisces').textContent = piscesLuck;
   document.getElementById('luck-gemini').textContent = geminiLuck;
+}
+
+// 更新每日一首诗
+function updatePoem() {
+  const now = new Date();
+  const day = now.getDate();
+  const month = now.getMonth() + 1;
+  const year = now.getFullYear();
+  
+  // 根据日期选择一首诗
+  const poemIndex = (day + month + year) % poems.length;
+  const poem = poems[poemIndex];
+  
+  document.getElementById('poemContent').textContent = `${poem.content}\n——${poem.author}`;
 }
 
 // 更新天气动画
