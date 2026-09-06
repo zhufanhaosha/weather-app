@@ -215,8 +215,8 @@ function updateLunarInfo(year, month, day) {
   const yiJi = data.yi[Math.floor(day / 5) % data.yi.length];
   const jiJi = data.ji[Math.floor(day / 5) % data.ji.length];
   
-  document.getElementById('lunarYi').textContent = `宜${yiJi} `;
-  document.getElementById('lunarJi').textContent = `忌${jiJi}`;
+  document.getElementById('lunarYi').textContent = `宜 ${yiJi}`;
+  document.getElementById('lunarJi').textContent = `忌 ${jiJi}`;
 }
 
 // 更新生日提醒
