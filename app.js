@@ -18,16 +18,16 @@ const weatherIcons = {
   67: '🌧️',   // 强冻雨
   71: '🌨️',   // 小雪
   73: '🌨️',   // 中雪
-  75: '❄️',   // 大雪
+  75: '❄️',    // 大雪
   77: '🌨️',   // 雪粒
   80: '🌦️',   // 阵雨
   81: '🌧️',   // 中阵雨
-  82: '⛈️',   // 大阵雨
+  82: '⛈️',    // 大阵雨
   85: '🌨️',   // 阵雪
-  86: '❄️',   // 强阵雪
-  95: '⛈️',   // 雷暴
-  96: '⛈️',   // 雷暴冰雹
-  99: '⛈️',   // 强雷暴冰雹
+  86: '❄️',    // 强阵雪
+  95: '⛈️',    // 雷暴
+  96: '⛈️',    // 雷暴冰雹
+  99: '⛈️',    // 强雷暴冰雹
 };
 
 // 天气代码对应描述
@@ -62,6 +62,34 @@ const weatherDescriptions = {
   99: '雷暴伴有大冰雹',
 };
 
+// 星座运势数据
+const horoscopeData = {
+  scorpio: {
+    name: '天蝎座',
+    symbol: '♏',
+    luck: ['今日运势旺盛，事业顺利', '感情运佳，适合约会', '财运不错，有小惊喜', '健康运平稳，注意休息', '学业有成，思路清晰'],
+    color: '#8B0000',
+    lucky: ['红', '紫'],
+    direction: '西南'
+  },
+  pisces: {
+    name: '双鱼座',
+    symbol: '♓',
+    luck: ['今日桃花运旺', '创意满满，灵感迸发', '财运稳定，适合储蓄', '贵人运佳，遇事逢凶化吉', '心情愉快，家庭和睦'],
+    color: '#4169E1',
+    lucky: ['蓝', '白'],
+    direction: '东方'
+  },
+  gemini: {
+    name: '双子座',
+    symbol: '♊',
+    luck: ['思维活跃，适合学习', '社交运佳，认识新朋友', '财运波动，谨慎投资', '创意无限，适合创作', '贵人相助，事半功倍'],
+    color: '#FFD700',
+    lucky: ['黄', '绿'],
+    direction: '东南'
+  }
+};
+
 // 默认城市（石家庄）
 const DEFAULT_CITY = '石家庄';
 const DEFAULT_LAT = 38.04;
@@ -85,6 +113,7 @@ let weatherDisplay;
 let errorMessage;
 let quickCityBtns;
 let mainContent;
+let weatherAnimation;
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,12 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
   errorMessage = document.getElementById('errorMessage');
   mainContent = document.getElementById('mainContent');
   quickCityBtns = document.querySelectorAll('.quick-cities button');
+  weatherAnimation = document.getElementById('weatherAnimation');
   
   // 初始化日期和农历
   updateDate();
   
   // 初始化生日提醒
   updateBirthdays();
+  
+  // 初始化星座运势
+  updateHoroscope();
   
   // 初始化：加载默认城市
   loadWeather(DEFAULT_LAT, DEFAULT_LON, DEFAULT_CITY);
@@ -246,6 +279,98 @@ function updateBirthdays() {
   }
 }
 
+// 更新星座运势
+function updateHoroscope() {
+  const now = new Date();
+  const day = now.getDate();
+  const month = now.getMonth() + 1;
+  
+  // 根据日期生成运势
+  const scorpioLuck = horoscopeData.scorpio.luck[day % horoscopeData.scorpio.luck.length];
+  const piscesLuck = horoscopeData.pisces.luck[day % horoscopeData.pisces.luck.length];
+  const geminiLuck = horoscopeData.gemini.luck[day % horoscopeData.gemini.luck.length];
+  
+  document.getElementById('luck-scorpio').textContent = scorpioLuck;
+  document.getElementById('luck-pisces').textContent = piscesLuck;
+  document.getElementById('luck-gemini').textContent = geminiLuck;
+}
+
+// 更新天气动画
+function updateWeatherAnimation(weatherCode) {
+  // 清除现有动画
+  weatherAnimation.innerHTML = '';
+  
+  // 晴天 (天气代码 0, 1)
+  if (weatherCode === 0 || weatherCode === 1) {
+    // 太阳
+    const sun = document.createElement('div');
+    sun.className = 'sun';
+    weatherAnimation.appendChild(sun);
+    
+    // 阳光射线
+    for (let i = 0; i < 8; i++) {
+      const ray = document.createElement('div');
+      ray.className = 'sun-ray';
+      ray.style.transform = `translate(-50%, -50%) rotate(${i * 45}deg)`;
+      sun.appendChild(ray);
+    }
+  }
+  
+  // 雨天 (天气代码 51-67, 80-82)
+  else if ((weatherCode >= 51 && weatherCode <= 67) || (weatherCode >= 80 && weatherCode <= 82)) {
+    // 云朵
+    for (let i = 0; i < 3; i++) {
+      const cloud = document.createElement('div');
+      cloud.className = 'cloud';
+      cloud.style.top = `${10 + i * 15}%`;
+      cloud.style.animationDelay = `${i * -7}s`;
+      cloud.style.width = `${80 + i * 30}px`;
+      cloud.style.height = `${30 + i * 10}px`;
+      weatherAnimation.appendChild(cloud);
+    }
+    
+    // 雨滴
+    for (let i = 0; i < 50; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'raindrop';
+      drop.style.left = `${Math.random() * 100}%`;
+      drop.style.animationDelay = `${Math.random() * 0.8}s`;
+      drop.style.animationDuration = `${0.5 + Math.random() * 0.5}s`;
+      weatherAnimation.appendChild(drop);
+    }
+  }
+  
+  // 雪天 (天气代码 71-77, 85-86)
+  else if ((weatherCode >= 71 && weatherCode <= 77) || (weatherCode >= 85 && weatherCode <= 86)) {
+    // 云朵
+    for (let i = 0; i < 2; i++) {
+      const cloud = document.createElement('div');
+      cloud.className = 'cloud';
+      cloud.style.top = `${15 + i * 20}%`;
+      cloud.style.animationDelay = `${i * -10}s`;
+      cloud.style.width = '120px';
+      cloud.style.height = '40px';
+      weatherAnimation.appendChild(cloud);
+    }
+    
+    // 雪花
+    for (let i = 0; i < 30; i++) {
+      const snow = document.createElement('div');
+      snow.style.position = 'absolute';
+      snow.style.left = `${Math.random() * 100}%`;
+      snow.style.top = '-20px';
+      snow.style.width = '8px';
+      snow.style.height = '8px';
+      snow.style.background = 'white';
+      snow.style.borderRadius = '50%';
+      snow.style.opacity = '0.8';
+      snow.style.animation = `snow ${2 + Math.random() * 2}s linear infinite`;
+      snow.style.animationDelay = `${Math.random() * 2}s`;
+      weatherAnimation.appendChild(snow);
+    }
+  }
+}
+
 // 计算距离生日还有多少天
 function getDaysUntilBirthday(month, day) {
   const now = new Date();
@@ -313,6 +438,9 @@ async function loadWeather(lat, lon, cityName) {
     document.getElementById('humidity').textContent = `${current.relative_humidity_2m}%`;
     document.getElementById('windSpeed').textContent = `${current.wind_speed_10m} km/h`;
     document.getElementById('feelsLike').textContent = `${Math.round(current.apparent_temperature)}°C`;
+    
+    // 更新天气动画
+    updateWeatherAnimation(current.weather_code);
     
     // 更新15天趋势
     renderForecast(daily);
@@ -393,3 +521,13 @@ function showError(msg) {
   errorMessage.style.display = 'block';
   mainContent.style.display = 'none';
 }
+
+// 添加雪花动画样式
+const snowStyle = document.createElement('style');
+snowStyle.textContent = `
+  @keyframes snow {
+    0% { transform: translateY(-20px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
+`;
+document.head.appendChild(snowStyle);
