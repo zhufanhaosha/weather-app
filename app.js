@@ -344,14 +344,15 @@ function updateWeatherAnimation(weatherCode) {
   // 阴天 (天气代码 3)
   else if (weatherCode === 3) {
     // 厚重云朵
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       const cloud = document.createElement('div');
       cloud.className = 'cloud';
-      cloud.style.top = `${5 + i * 18}%`;
+      cloud.style.top = `${5 + i * 15}%`;
       cloud.style.animationDelay = `${i * -5}s`;
-      cloud.style.width = `${100 + i * 30}px`;
-      cloud.style.height = `${40 + i * 10}px`;
-      cloud.style.opacity = '0.85';
+      cloud.style.width = `${120 + i * 40}px`;
+      cloud.style.height = `${50 + i * 15}px`;
+      cloud.style.opacity = '0.9';
+      cloud.style.background = 'rgba(180, 180, 180, 0.85)';
       weatherAnimation.appendChild(cloud);
     }
   }
