@@ -322,22 +322,22 @@ function updateWeatherAnimation(weatherCode) {
     for (let i = 0; i < 3; i++) {
       const cloud = document.createElement('div');
       cloud.className = 'cloud';
-      cloud.style.top = `${10 + i * 20}%`;
-      cloud.style.animationDelay = `${i * -7}s`;
-      cloud.style.width = `${80 + i * 40}px`;
-      cloud.style.height = `${30 + i * 10}px`;
-      cloud.style.opacity = '0.8';
+      cloud.style.top = `${8 + i * 18}%`;
+      cloud.style.animationDelay = `${i * -12}s`;
+      cloud.style.width = `${100 + i * 50}px`;
+      cloud.style.height = `${35 + i * 12}px`;
+      cloud.style.opacity = '0.85';
       weatherAnimation.appendChild(cloud);
     }
     
     // 部分太阳
     const sun = document.createElement('div');
     sun.className = 'sun';
-    sun.style.top = '5%';
-    sun.style.right = '15%';
-    sun.style.width = '80px';
-    sun.style.height = '80px';
-    sun.style.opacity = '0.6';
+    sun.style.top = '8%';
+    sun.style.right = '20%';
+    sun.style.width = '70px';
+    sun.style.height = '70px';
+    sun.style.opacity = '0.7';
     weatherAnimation.appendChild(sun);
   }
   
