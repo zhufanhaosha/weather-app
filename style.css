@@ -176,7 +176,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 5px;
+  margin-top: 0;
   margin-bottom: 8px;
   padding: 0 5px;
 }
