@@ -184,16 +184,26 @@ function updateDate() {
   const weekday = weekdays[now.getDay()];
   document.getElementById('solarDate').textContent = `${year}年${month}月${day}日 ${weekday}`;
   
-  // 农历信息（简化版，实际项目可以使用 lunar-calendar 库）
-  updateLunarInfo(year, month, day);
+  // 农历日期
+  updateLunarDate(year, month, day);
   
   // 更新宜忌
   updateYiJi(year, month, day);
 }
 
-// 更新农历信息（简化实现）
-function updateLunarInfo(year, month, day) {
-  // 简化农历显示
+// 更新农历日期
+function updateLunarDate(year, month, day) {
+  // 农历月份和日期名称
+  const monthNames = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊'];
+  const dayNames = ['初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+                    '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+                    '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'];
+  
+  // 简化处理：假设公历和农历月份大致对应
+  const lunarMonthName = monthNames[Math.min(month - 1, 11)];
+  const lunarDayName = dayNames[Math.min(day - 1, 29)];
+  
+  document.getElementById('lunarDate').textContent = `农历${lunarMonthName}月${lunarDayName}`;
 }
 
 // 更新宜忌
@@ -279,7 +289,7 @@ function updateHoroscope() {
   document.getElementById('luck-gemini').textContent = geminiLuck;
 }
 
-// 更新每日一首诗（每行两句）
+// 更新每日一首诗（每句一行）
 function updatePoem() {
   const now = new Date();
   const day = now.getDate();
@@ -290,29 +300,27 @@ function updatePoem() {
   const poemIndex = (day + month + year) % poems.length;
   const poem = poems[poemIndex];
   
-  // 将诗歌内容按行分割，然后每两句合并成一行
+  // 将诗歌内容按行分割
   const lines = poem.content.split('\n').filter(line => line.trim());
   const contentEl = document.getElementById('poemContent');
   contentEl.innerHTML = '';
   
-  // 每行显示两句
-  for (let i = 0; i < lines.length; i += 2) {
+  // 每行单独显示
+  lines.forEach(line => {
     const lineDiv = document.createElement('div');
     lineDiv.className = 'poem-line';
-    if (i + 1 < lines.length) {
-      lineDiv.textContent = lines[i] + '，' + lines[i + 1];
-    } else {
-      lineDiv.textContent = lines[i];
-    }
+    lineDiv.textContent = line;
     contentEl.appendChild(lineDiv);
-  }
+  });
   
   // 作者
   const authorDiv = document.createElement('div');
-  authorDiv.style.marginTop = '4px';
+  authorDiv.style.marginTop = '6px';
   authorDiv.style.fontSize = '12px';
   authorDiv.style.color = '#8B4513';
   authorDiv.style.fontStyle = 'normal';
+  authorDiv.style.borderTop = '1px solid rgba(139,69,19,0.2)';
+  authorDiv.style.paddingTop = '4px';
   authorDiv.textContent = `——${poem.author}`;
   contentEl.appendChild(authorDiv);
 }

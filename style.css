@@ -195,6 +195,12 @@ h1 {
   line-height: 1.2;
 }
 
+.lunar-date {
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
+}
+
 .lunar-info {
   font-size: 14px;
   line-height: 1.5;
