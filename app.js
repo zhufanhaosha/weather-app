@@ -572,9 +572,10 @@ async function loadNews() {
   const newsList = document.getElementById('newsList');
   newsList.innerHTML = '<div class="loading">加载中...</div>';
   
-  // 尝试多个中文新闻源
+  // 尝试多个中文新闻源（优先国内可用源）
   const newsSources = [
-    { url: 'https://cn.nytimes.com/rss/', name: '纽约时报中文网', type: '国际' },
+    { url: 'https://rss.sina.com.cn/news/push_china.xml', name: '新浪新闻', type: '国内' },
+    { url: 'https://www.chinanews.com.cn/rss/finance.xml', name: '中国新闻网', type: '国内' },
     { url: 'https://feeds.bbci.co.uk/zhongwen/simp/rss.xml', name: 'BBC中文', type: '国际' }
   ];
   
