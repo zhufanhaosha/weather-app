@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>天气生日小部件</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #FFE4E1 0%, #FFF8DC 50%, #E0FFFF 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+    }
+    
+    /* 天气区域 */
+    .weather-widget {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .weather-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .city-name {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    .weather-date {
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .weather-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .weather-temp {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+      line-height: 1;
+    }
+    
+    .weather-icon {
+      font-size: 40px;
+    }
+    
+    .weather-desc {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+    
+    /* 生日区域 */
+    .birthdays-widget {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      padding: 12px;
+      flex: 1;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .birthdays-title {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    
+    .birthday-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .birthday-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .chuchu-birthday {
+      background: linear-gradient(135deg, #ffdde1 0%, #ffb6c1 100%);
+    }
+    
+    .mumu-birthday {
+      background: linear-gradient(135deg, #a8edea 0%, #b8e6f0 100%);
+    }
+    
+    .birthday-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .birthday-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    
+    .birthday-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .birthday-countdown {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      text-align: right;
+    }
+    
+    .birthday-days {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .birthday-unit {
+      font-size: 11px;
+    }
+    
+    .today-badge {
+      background: #FF6B6B;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 4px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 天气区域 -->
+  <div class="weather-widget">
+    <div class="weather-header">
+      <span class="city-name" id="cityName">石家庄</span>
+      <span class="weather-date" id="weatherDate"></span>
+    </div>
+    <div class="weather-main">
+      <div>
+        <div class="weather-temp" id="temperature">--°</div>
+        <div class="weather-desc" id="weatherDesc">加载中...</div>
+      </div>
+      <div class="weather-icon" id="weatherIcon">🌤️</div>
+    </div>
+  </div>
+  
+  <!-- 生日区域 -->
+  <div class="birthdays-widget">
+    <div class="birthdays-title">🎂 生日倒计时</div>
+    
+    <div class="birthday-item chuchu-birthday">
+      <div class="birthday-info">
+        <div class="birthday-avatar">🧸</div>
+        <span class="birthday-name">楚楚生日</span>
+      </div>
+      <div class="birthday-countdown">
+        <span id="chuchuDays" class="birthday-days">--</span>
+        <span class="birthday-unit">天后</span>
+        <span id="chuchuToday" class="today-badge" style="display:none">今天!</span>
+      </div>
+    </div>
+    
+    <div class="birthday-item mumu-birthday">
+      <div class="birthday-info">
+        <div class="birthday-avatar">⚡</div>
+        <span class="birthday-name">沐沐生日</span>
+      </div>
+      <div class="birthday-countdown">
+        <span id="mumuDays" class="birthday-days">--</span>
+        <span class="birthday-unit">天后</span>
+        <span id="mumuToday" class="today-badge" style="display:none">今天!</span>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // 生日信息
+    const birthdays = {
+      chuchu: { name: '楚楚', month: 6, day: 5, emoji: '🧸' },
+      mumu: { name: '沐沐', month: 7, day: 10, emoji: '⚡' }
+    };
+    
+    // 天气数据
+    const weatherIcons = {
+      0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+      45: '🌫️', 48: '🌫️',
+      51: '🌦️', 53: '🌦️', 55: '🌧️',
+      61: '🌧️', 63: '🌧️', 65: '🌧️',
+      71: '🌨️', 73: '🌨️', 75: '❄️',
+      95: '⛈️', 96: '⛈️', 99: '⛈️'
+    };
+    
+    const weatherDescriptions = {
+      0: '晴朗', 1: '大部晴朗', 2: '多云', 3: '阴天',
+      45: '雾', 48: '雾凇',
+      51: '小毛毛雨', 53: '中毛毛雨', 55: '大毛毛雨',
+      61: '小雨', 63: '中雨', 65: '大雨',
+      71: '小雪', 73: '中雪', 75: '大雪',
+      95: '雷暴', 96: '雷暴冰雹', 99: '强雷暴冰雹'
+    };
+    
+    // 计算距离生日还有多少天
+    function getDaysUntilBirthday(month, day) {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      
+      let birthday = new Date(currentYear, month - 1, day);
+      
+      if (now > birthday) {
+        birthday = new Date(currentYear + 1, month - 1, day);
+      }
+      
+      const diffTime = birthday.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      return diffDays;
+    }
+    
+    // 更新日期显示
+    function updateDate() {
+      const now = new Date();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+      const weekday = weekdays[now.getDay()];
+      
+      document.getElementById('weatherDate').textContent = `${month}月${day}日 ${weekday}`;
+    }
+    
+    // 更新生日倒计时
+    function updateBirthdays() {
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1;
+      const currentDay = now.getDate();
+      
+      // 楚楚
+      const chuchuDays = getDaysUntilBirthday(birthdays.chuchu.month, birthdays.chuchu.day);
+      const chuchuEl = document.getElementById('chuchuDays');
+      const chuchuToday = document.getElementById('chuchuToday');
+      chuchuEl.textContent = chuchuDays;
+      
+      if (currentMonth === birthdays.chuchu.month && currentDay === birthdays.chuchu.day) {
+        chuchuEl.textContent = '🎉';
+        chuchuToday.style.display = 'inline';
+      }
+      
+      // 沐沐
+      const mumuDays = getDaysUntilBirthday(birthdays.mumu.month, birthdays.mumu.day);
+      const mumuEl = document.getElementById('mumuDays');
+      const mumuToday = document.getElementById('mumuToday');
+      mumuEl.textContent = mumuDays;
+      
+      if (currentMonth === birthdays.mumu.month && currentDay === birthdays.mumu.day) {
+        mumuEl.textContent = '🎉';
+        mumuToday.style.display = 'inline';
+      }
+    }
+    
+    // 获取天气
+    async function loadWeather() {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=38.04&longitude=114.51&current=temperature_2m,weather_code&timezone=Asia/Shanghai');
+        const data = await res.json();
+        
+        const temp = Math.round(data.current.temperature_2m);
+        const code = data.current.weather_code;
+        
+        document.getElementById('temperature').textContent = `${temp}°`;
+        document.getElementById('weatherDesc').textContent = weatherDescriptions[code] || '晴';
+        document.getElementById('weatherIcon').textContent = weatherIcons[code] || '🌤️';
+      } catch (err) {
+        console.error('天气加载失败:', err);
+      }
+    }
+    
+    // 初始化
+    function init() {
+      updateDate();
+      updateBirthdays();
+      loadWeather();
+    }
+    
+    // 页面加载完成后执行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
