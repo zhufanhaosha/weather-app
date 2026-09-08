@@ -1,10 +1,10 @@
-const CACHE_NAME = 'weather-app-v2';
+const CACHE_NAME = 'weather-app-v3';
 const ASSETS = [
   '/',
   '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json'
+  '/style.css?v=2',
+  '/app.js?v=2',
+  '/manifest.json?v=2'
 ];
 
 // 安装时缓存关键文件
@@ -12,6 +12,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
