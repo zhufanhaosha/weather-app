@@ -591,11 +591,16 @@ async function loadNews() {
         items.forEach((item, index) => {
           const newsItem = document.createElement('div');
           newsItem.className = 'news-item';
+          newsItem.style.cursor = 'pointer';
           newsItem.innerHTML = `
             <div class="news-title">${index + 1}. ${item.title}</div>
             <div class="news-source">${source.name}</div>
           `;
-          newsItem.addEventListener('click', () => window.open(item.link, '_blank'));
+          newsItem.addEventListener('click', () => {
+            if (item.link) {
+              window.location.href = item.link;
+            }
+          });
           newsList.appendChild(newsItem);
         });
         return;
