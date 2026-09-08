@@ -575,8 +575,8 @@ async function loadNews() {
   // 尝试多个中文新闻源（国内可访问）
   const newsSources = [
     { url: 'https://www.chinanews.com.cn/rss/finance.xml', name: '中国新闻网', type: '国内' },
-    { url: 'https://www.36kr.com/feed', name: '36氪', type: '科技' },
-    { url: 'https://feeds.bbci.co.uk/zhongwen/simp/rss.xml', name: 'BBC中文', type: '国际' }
+    { url: 'https://www.chinanews.com.cn/rss/china_news.xml', name: '国内新闻', type: '国内' },
+    { url: 'https://www.chinanews.com.cn/rss/society_news.xml', name: '社会新闻', type: '国内' }
   ];
   
   for (const source of newsSources) {
