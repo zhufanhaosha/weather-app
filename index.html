@@ -7,9 +7,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#FFD93D">
   <meta name="description" content="每日天气、课程表、新闻、运势一站式查询">
+  <!-- 禁止缓存 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>天气查询</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json?v=2">
+  <link rel="stylesheet" href="style.css?v=2">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
   <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
@@ -274,7 +278,7 @@
     <div id="errorMessage" class="error-message" style="display:none;"></div>
   </div>
   
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
   <script>
     // 注册 Service Worker
     if ('serviceWorker' in navigator) {
